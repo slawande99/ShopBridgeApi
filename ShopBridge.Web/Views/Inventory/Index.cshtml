@@ -1,0 +1,80 @@
+﻿@model PagedList.IPagedList<ShopBridge.Web.InventoryViewModel>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<h2>Index</h2>
+
+<div>
+    @Html.Partial("~/Views/Inventory/_InventoryDashborad.cshtml",Model)
+</div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<br/>
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input class="btn btn-primary" type="submit" value="Search" />
+    </p>
+}
+<br/>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Image
+        </th>
+        <th>
+            Created Date
+        </th>
+        <th>
+            Inventory Type
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            <img src="@Url.Content(item.ImagePath)" alt="Image" height="50" width="50" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateIn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InventoryTypeName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.InventoryID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.InventoryID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.InventoryID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))

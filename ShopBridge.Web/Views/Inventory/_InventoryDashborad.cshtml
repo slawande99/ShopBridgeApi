@@ -1,0 +1,34 @@
+﻿@model IEnumerable<ShopBridge.Web.InventoryViewModel>
+@using ShopBridge.Web.Enums
+<div class="row" style="margin-top:20px;margin-bottom:20px;">
+    <h4>
+        Inventory Status
+    </h4>
+    <div class="col-md-12" style="margin-top:20px;">
+        <div class="col-md-2">
+            <span class="alert alert-info">
+                Raw Materials(@Model.Count(x => x.InventoryTypeId == (int)InventoryTypeLookup.RawMaterials))
+            </span>
+        </div>
+        <div class="col-md-2">
+            <span class="alert alert-warning">
+                Work In Progress(@Model.Count(x => x.InventoryTypeId == (int)InventoryTypeLookup.WorkInProgress))
+            </span>
+        </div>
+        <div class="col-md-2">
+            <span class="alert alert-danger">
+                Finished Goods(@Model.Count(x => x.InventoryTypeId == (int)InventoryTypeLookup.FinishedGoods))
+            </span>
+        </div>
+        <div class="col-md-2">
+            <span class="alert alert-success">
+                Packing Material(@Model.Count(x => x.InventoryTypeId == (int)InventoryTypeLookup.PackingMaterial))
+             </span>
+        </div>
+        <div class="col-md-2">
+            <span class="alert alert-success">
+                Supplies(@Model.Count(x => x.InventoryTypeId == (int)InventoryTypeLookup.Supplies))
+            </span>
+       </div>
+    </div>
+</div>
